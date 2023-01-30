@@ -15,13 +15,10 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log(`user connected: ${socket.id}`);
-  socket.on("sendMessage", (data) => {
-    socket.broadcast.emit("listenMsg", data);
-  });
+  socket.emit("id", socket.id);
 
-  socket.on("image", (file) => {
-    socket.broadcast.emit("listenMsg", file);
+  socket.on("send message", (data) => {
+    io.emit("recieveMsg", data);
   });
 });
 server.listen(3001, () => {
